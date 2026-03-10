@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gettysburg 2026 · Alonso</title>
+
+<!-- ── iOS Home Screen App ── -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Gettysburg · Alonso">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0e1a16">
+
+<!-- App Icon -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230e1a16'/%3E%3Crect x='0' y='0' width='180' height='5' fill='%232a7a5a'/%3E%3Ctext x='90' y='95' font-family='Georgia,serif' font-size='52' font-style='italic' font-weight='bold' fill='%23f2ead8' text-anchor='middle' dominant-baseline='middle'%3EG%3C/text%3E%3Ctext x='90' y='140' font-family='Arial,sans-serif' font-size='14' fill='%23c9a84c' text-anchor='middle' letter-spacing='3'%3EALONSO%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600;700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper: #f2ead8;
+  --paper-dark: #e4d9c0;
+  --paper-darker: #d4c8a8;
+  --ink: #1c1810;
+  --ink-mid: #3d3526;
+  --ink-light: #7a6e58;
+  --ink-faint: #b8a98a;
+  --red: #8b2020;
+  --blue: #1a3a5c;
+  --gold: #a07820;
+  --gold-light: #c9a84c;
+  --teal: #1a5c4a;
+  --personal: #1a4a3a; /* Alonso accent = deep teal/forest */
+  --personal-light: #2a7a5a;
+  --personal-glow: rgba(26,74,58,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper-dark);
+  color: var(--ink);
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.7;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* iOS standalone mode adjustments */
+@media (display-mode: standalone) {
+  .hero { padding-top: calc(5rem + env(safe-area-inset-top)); }
+  .footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)); }
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(28,24,16,0.03) 28px, rgba(28,24,16,0.03) 29px);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  background: #0e1a16;
+  color: var(--paper);
+  padding: 5rem 3rem 4rem;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(242,234,216,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242,234,216,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--personal-light), var(--gold-light), var(--personal-light));
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+.hero-owner {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(26,74,58,0.25);
+  border: 1px solid rgba(42,122,90,0.45);
+  padding: 0.3rem 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: #7ecfaa;
+  margin-bottom: 1.8rem;
+  opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+}
+.hero-owner-dot { width: 6px; height: 6px; border-radius: 50%; background: #7ecfaa; }
+
+.hero-eyebrow {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.68rem; font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 1rem;
+  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-title {
+  font-family: 'Unna', serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 700; font-style: italic;
+  line-height: 1; letter-spacing: -0.01em;
+  color: var(--paper); margin-bottom: 0.4rem;
+  opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-title span { color: var(--gold-light); font-style: normal; }
+
+.hero-sub {
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  font-size: 1rem; color: rgba(242,234,216,0.5);
+  margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+}
+
+
+/* ── NAV BUTTONS ── */
+.hero-days { display: flex; justify-content: center; flex-wrap: wrap; gap: 0; }
+.hero-day {
+  padding: 0.6rem 1.1rem;
+  border: 1px solid rgba(242,234,216,0.12);
+  background: transparent;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(242,234,216,0.45);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.hero-day + .hero-day { border-left: none; }
+.hero-day:hover { color: var(--gold-light); border-color: rgba(200,168,74,0.3); }
+.hero-day.active { background: rgba(200,168,74,0.15); color: var(--gold-light); border-color: rgba(200,168,74,0.4); }
+
+/* hidden day */
+.day-hidden { display: none !important; }
+
+
+/* ── LAYOUT ── */
+.page { position: relative; z-index: 1; }
+
+/* ── LEGEND ── */
+.legend {
+  max-width: 900px; margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center;
+  border-bottom: 1px solid var(--paper-darker);
+}
+.legend-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--ink-faint); margin-right: 0.4rem;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.62rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-light);
+}
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.ld-shared { background: var(--gold); }
+.ld-solo { background: var(--personal-light); }
+.ld-dinner { background: var(--red); }
+.ld-landmark { background: var(--blue); }
+
+/* ── DAY SECTIONS ── */
+.day {
+  max-width: 900px; margin: 0 auto;
+  padding: 3.5rem 2rem 1.5rem;
+  /* always visible — CSS animation handles reveal */
+  animation: revealUp 0.7s ease both;
+}
+
+.day-cap {
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: end; gap: 1rem;
+  padding-bottom: 1rem; margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+}
+.day-cap::after {
+  content: ''; position: absolute; bottom: -5px; left: 0;
+  width: 100%; height: 1px; background: var(--ink-faint);
+}
+.day-num {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 0.35rem;
+}
+.day-title {
+  font-family: 'Unna', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+  font-weight: 700; font-style: italic; line-height: 1.1; color: var(--ink);
+}
+.day-badge {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.3rem 0.7rem; border: 1px solid var(--ink-faint);
+  color: var(--ink-light); white-space: nowrap; align-self: start; margin-top: 0.4rem;
+}
+.day-badge.maic { border-color: rgba(160,120,32,0.4); color: var(--gold); background: rgba(160,120,32,0.05); }
+.day-badge.free { border-color: rgba(26,74,58,0.4); color: var(--personal-light); background: var(--personal-glow); }
+.day-badge.final { border-color: rgba(26,74,58,0.4); color: var(--personal-light); background: var(--personal-glow); }
+
+/* ── EVENTS ── */
+.events { display: flex; flex-direction: column; }
+
+.event {
+  display: grid; grid-template-columns: 72px 20px 1fr;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--paper-darker);
+  transition: background 0.2s;
+}
+.event:last-child { border-bottom: none; }
+.event:hover { background: rgba(28,24,16,0.02); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+
+.event-time-col { text-align: right; padding-right: 0.5rem; padding-top: 0.1rem; }
+.event-time {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem; font-weight: 700; color: var(--ink); display: block; letter-spacing: 0.05em;
+}
+.event-time-end {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.62rem; color: var(--ink-light); display: block; letter-spacing: 0.05em;
+}
+
+.event-spine {
+  display: flex; flex-direction: column; align-items: center; padding-top: 0.3rem;
+}
+.spine-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ink); position: relative; z-index: 1;
+}
+.spine-line {
+  flex: 1; width: 1px; background: var(--paper-darker); margin-top: 4px;
+}
+.event:last-child .spine-line { display: none; }
+
+.event[data-type="shared"] .spine-dot { background: var(--gold); box-shadow: 0 0 0 2px rgba(160,120,32,0.15); }
+.event[data-type="solo"] .spine-dot { background: var(--personal-light); box-shadow: 0 0 0 2px var(--personal-glow); }
+.event[data-type="dinner"] .spine-dot { background: var(--red); box-shadow: 0 0 0 2px rgba(139,32,32,0.12); }
+.event[data-type="landmark"] .spine-dot { background: var(--blue); }
+.event[data-type="museum"] .spine-dot { background: var(--blue); }
+.event[data-type="optional"] .spine-dot { background: var(--paper-darker); border: 1px solid var(--ink-faint); }
+.event[data-type="depart"] .spine-dot { background: transparent; border: 1px solid var(--ink-faint); }
+
+.event-body { padding-left: 1.2rem; }
+
+.event-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.45rem; }
+.event-tag {
+  display: inline-block; font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border: 1px solid;
+}
+.tag-shared   { border-color: rgba(160,120,32,0.5); color: var(--gold); }
+.tag-solo     { border-color: rgba(26,122,90,0.5); color: var(--personal-light); }
+.tag-dinner   { border-color: rgba(139,32,32,0.5); color: var(--red); }
+.tag-landmark,.tag-museum,.tag-battlefield { border-color: rgba(26,58,92,0.5); color: var(--blue); }
+.tag-walk,.tag-morning { border-color: var(--ink-faint); color: var(--ink-light); }
+.tag-optional { border-color: var(--ink-faint); color: var(--ink-faint); }
+.tag-depart   { border-color: var(--ink-faint); color: var(--ink-faint); }
+.tag-lunch    { border-color: rgba(160,120,32,0.5); color: var(--gold); }
+.tag-keynote  { border-color: rgba(26,74,58,0.5); color: var(--personal-light); }
+
+.event-name {
+  font-family: 'Unna', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--ink); line-height: 1.2; margin-bottom: 0.2rem;
+}
+.event-speaker {
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  font-size: 0.8rem; color: var(--ink-light); margin-bottom: 0.5rem;
+}
+.event-loc {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.6rem;
+}
+.event-desc { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.75; }
+
+.event-callout {
+  margin-top: 0.75rem; padding: 0.5rem 0.85rem; border-left: 2px solid var(--gold);
+  background: rgba(160,120,32,0.06); font-family: 'Libre Baskerville', serif;
+  font-style: italic; font-size: 0.8rem; color: var(--gold); line-height: 1.6;
+}
+.event-callout.blue  { border-color: var(--blue); background: rgba(26,58,92,0.05); color: var(--blue); }
+.event-callout.red   { border-color: var(--red); background: rgba(139,32,32,0.05); color: var(--red); }
+.event-callout.teal  { border-color: var(--personal-light); background: var(--personal-glow); color: var(--personal-light); }
+
+.event-reservation {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  margin-top: 0.5rem; font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red);
+}
+.event-reservation::before { content: '✓'; }
+
+.day-div {
+  max-width: 900px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  animation: revealFade 0.7s ease both;
+}
+.div-line { flex: 1; height: 1px; background: var(--paper-darker); }
+.div-mark {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap;
+}
+
+.break-note {
+  max-width: 900px; margin: 0 auto; padding: 0.4rem 2rem;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint);
+  display: flex; align-items: center; gap: 1rem;
+}
+.break-note.visible { opacity: 1; }
+.break-note::before, .break-note::after { content: ''; flex: 1; height: 1px; background: var(--paper-darker); }
+
+/* ══════════════════════════════
+   HISTORICAL APPENDIX
+══════════════════════════════ */
+.appendix {
+  max-width: 900px; margin: 3rem auto 0;
+  padding: 3.5rem 2rem 5rem;
+  border-top: 2px solid var(--ink);
+  position: relative;
+  animation: revealUp 0.7s ease both;
+}
+.appendix::before {
+  content: ''; position: absolute; top: 3px; left: 0;
+  width: 100%; height: 1px; background: var(--ink-faint);
+}
+
+.appendix-header { text-align: center; margin-bottom: 3.5rem; }
+.appendix-eyebrow {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.45em; text-transform: uppercase; color: var(--ink-faint);
+  margin-bottom: 0.8rem; display: block;
+}
+.appendix-title {
+  font-family: 'Unna', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700; font-style: italic; color: var(--ink); line-height: 1.1; margin-bottom: 0.6rem;
+}
+.appendix-sub {
+  font-family: 'Libre Baskerville', serif; font-style: italic;
+  font-size: 0.9rem; color: var(--ink-light);
+}
+.appendix-rule {
+  display: flex; align-items: center; gap: 1rem;
+  justify-content: center; margin: 1.8rem 0 3rem;
+}
+.appendix-rule-line { width: 80px; height: 1px; background: var(--paper-darker); }
+.appendix-rule-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+
+.appendix-sections { display: flex; flex-direction: column; }
+
+.app-section {
+  padding: 2.2rem 0; border-bottom: 1px solid var(--paper-darker);
+  display: grid; grid-template-columns: 200px 1fr; gap: 0 2.5rem;
+  animation: revealUp 0.6s ease both;
+}
+.app-section:last-child { border-bottom: none; }
+
+.app-label-col { padding-top: 0.2rem; }
+.app-num {
+  font-family: 'Unna', serif; font-size: 2.5rem; font-weight: 700;
+  color: rgba(28,24,16,0.07); line-height: 1; margin-bottom: 0.3rem; letter-spacing: -0.03em;
+}
+.app-label {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink);
+  border-top: 1px solid var(--ink); padding-top: 0.4rem;
+}
+.app-sublabel {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.58rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint); margin-top: 0.2rem;
+}
+.app-title {
+  font-family: 'Unna', serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 0.7rem; line-height: 1.2;
+}
+.app-body { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.85; }
+.app-body strong { color: var(--ink); font-weight: 700; }
+.app-fact {
+  margin-top: 1rem; padding: 0.6rem 0.9rem;
+  border-left: 2px solid var(--gold); background: rgba(160,120,32,0.05);
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--gold); line-height: 1.5;
+}
+
+.footer {
+  background: #0e1a16; color: rgba(242,234,216,0.25);
+  text-align: center; padding: 2rem;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem;
+  font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 640px) {
+  .event { grid-template-columns: 60px 18px 1fr; }
+  .day-cap { grid-template-columns: 1fr; }
+  .app-section { grid-template-columns: 1fr; gap: 0.5rem; }
+  .app-num { font-size: 1.8rem; }
+  .hero { padding: 3.5rem 1.5rem 2.5rem; }
+}
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes revealFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* stagger days */
+.day:nth-child(1)  { animation-delay: 0.1s; }
+.day:nth-child(2)  { animation-delay: 0.15s; }
+.day:nth-child(3)  { animation-delay: 0.2s; }
+.day:nth-child(4)  { animation-delay: 0.25s; }
+.day-div           { animation-delay: 0.1s; }
+.appendix          { animation-delay: 0.2s; }
+.app-section:nth-child(1) { animation-delay: 0.1s; }
+.app-section:nth-child(2) { animation-delay: 0.2s; }
+.app-section:nth-child(3) { animation-delay: 0.3s; }
+.app-section:nth-child(4) { animation-delay: 0.4s; }
+.app-section:nth-child(5) { animation-delay: 0.5s; }
+.app-section:nth-child(6) { animation-delay: 0.6s; }
+.app-section:nth-child(7) { animation-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-owner"><div class="hero-owner-dot"></div> Alonso Prado-Masias · Personal Guide</div>
+    <p class="hero-eyebrow">MAIC 2026 · Gettysburg, Pennsylvania</p>
+    <h1 class="hero-title">Gettysburg <span>&amp;</span> the Conference</h1>
+    <p class="hero-sub">Mid Atlantic Innkeepers Conference · March 15–18, 2026</p>
+    <nav class="hero-days" role="navigation" aria-label="Day navigation">
+      <button class="hero-day active" data-filter="all" onclick="filterDay(this,'all')">All Days</button>
+      <button class="hero-day" data-filter="sun" onclick="filterDay(this,'sun')">Sun · 15</button>
+      <button class="hero-day" data-filter="mon" onclick="filterDay(this,'mon')">Mon · 16</button>
+      <button class="hero-day" data-filter="tue" onclick="filterDay(this,'tue')">Tue · 17</button>
+      <button class="hero-day" data-filter="wed" onclick="filterDay(this,'wed')">Wed · 18</button>
+      <button class="hero-day" data-filter="appendix" onclick="filterDay(this,'appendix')">History</button>
+    </nav>
+      <div class="hero-day shared">Mon · 16</div>
+      <div class="hero-day shared">Tue · 17</div>
+      <div class="hero-day free">Wed · 18</div>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<div class="legend">
+  <span class="legend-label">Key</span>
+  <span class="legend-item"><span class="legend-dot ld-shared"></span> Shared w/ Carlos</span>
+  <span class="legend-item"><span class="legend-dot ld-solo"></span> Alonso only</span>
+  <span class="legend-item"><span class="legend-dot ld-dinner"></span> Dinner (confirmed)</span>
+  <span class="legend-item"><span class="legend-dot ld-landmark"></span> Battlefield / Museum</span>
+</div>
+
+<!-- ══ SUNDAY, MARCH 15 ══ -->
+<section class="day" data-day="sun">
+  <div class="day-cap">
+    <div>
+      <p class="day-num">Day One · Sunday, March 15</p>
+      <h2 class="day-title">Arrival &amp; Conference Opens</h2>
+    </div>
+    <span class="day-badge maic">MAIC · Pre-Conference</span>
+  </div>
+  <div class="events">
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">1:30 PM</span><span class="event-time-end">5:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-walk">Off-site</span></div>
+        <h3 class="event-name">B&amp;B Tour</h3>
+        <p class="event-loc">Departs Wyndham Hotel Lobby · Pre-reg required</p>
+        <p class="event-desc">Guided tour of working B&amp;Bs — a practical walkthrough of real operations and property setups. The kind of thing you can't get from a session panel.</p>
+        <div class="event-callout red">Departs 1:30 PM sharp. Do not be late to the lobby.</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">6:30 PM</span><span class="event-time-end">8:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-dinner">Dinner</span></div>
+        <h3 class="event-name">Off-site Dinner — Beyond the Battlefield Museum</h3>
+        <p class="event-loc">625 Biglerville Rd, Gettysburg · Pre-reg required</p>
+        <p class="event-desc">Networking dinner at a historic venue. A relaxed way to meet fellow innkeepers before the conference days get underway.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-div" data-between="sun-mon"><div class="div-line"></div><span class="div-mark">Monday, March 16</span><div class="div-line"></div></div>
+
+<!-- ══ MONDAY, MARCH 16 ══ -->
+<section class="day" data-day="mon">
+  <div class="day-cap">
+    <div>
+      <p class="day-num">Day Two · Monday, March 16</p>
+      <h2 class="day-title">Conference Day One &amp; Dobbin House</h2>
+    </div>
+    <span class="day-badge maic">MAIC · Full Day</span>
+  </div>
+  <div class="events">
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">9:30 AM</span><span class="event-time-end">10:30 AM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-keynote">Keynote</span></div>
+        <h3 class="event-name">From Drained to Driven: Refuel Your Energy to Recharge Your Hospitality</h3>
+        <p class="event-speaker">Dr. Alicia Grandey · Penn State University, Psychology</p>
+        <p class="event-loc">Salons DEF</p>
+        <p class="event-desc">Recognize early burnout warning signs specific to innkeepers; evidence-based strategies to regulate emotions and recharge energy. Opening keynote — with Carlos.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Break — Tradeshow Marketplace</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">11:00 AM</span><span class="event-time-end">12:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Health &amp; Relationships</span></div>
+        <h3 class="event-name">Reconnect with the Joy of Modern Innkeeping</h3>
+        <p class="event-speaker">Rachel Foster · Apple Pony Inn, PA</p>
+        <p class="event-loc">Salon F</p>
+        <p class="event-desc">Identify burnout, set personal boundaries, manage difficult guests, and create fresh energy by investing back in your business. A natural follow-on to the morning keynote.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Lunch · ThinkReservations Sponsor</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">1:30 PM</span><span class="event-time-end">2:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Operations &amp; Business</span></div>
+        <h3 class="event-name">Hospitality Management &amp; Guest Experiences</h3>
+        <p class="event-speaker">Multiple innkeepers · Roundtable rotation</p>
+        <p class="event-loc">Salon E</p>
+        <p class="event-desc">Rotating tables: cross-cultural welcome, perfecting check-in/out, and handling complaints gracefully. Peer-to-peer learning format — one of the most interactive sessions of the conference.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Break — Tradeshow Marketplace</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">2:45 PM</span><span class="event-time-end">3:45 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Health &amp; Relationships</span></div>
+        <h3 class="event-name">Parsley, Sage, Rosemary and TIME!</h3>
+        <p class="event-speaker">Karen DeBord &amp; Jack Phillips · Bedford Landings B&amp;B, VA</p>
+        <p class="event-loc">Salon F</p>
+        <p class="event-desc">Division of duties, handling difficult guests and odd requests, and protecting your property by knowing guest intent. Practical and frank.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Break — Tradeshow Marketplace</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">4:15 PM</span><span class="event-time-end">5:15 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Operations &amp; Business</span></div>
+        <h3 class="event-name">Redecorating and Updating for Impact</h3>
+        <p class="event-speaker">Anderson, Campbell, King · Marilyn Bushnell / Keystone / Pheasant Field</p>
+        <p class="event-loc">Salon E</p>
+        <p class="event-desc">Real-world room makeover examples that boost guest experience and revenue while keeping a tight budget. Directly relevant to a property in search of its identity.</p>
+      </div>
+    </div>
+
+    <div class="event" data-type="dinner">
+      <div class="event-time-col"><span class="event-time">6:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-dinner">Dinner</span></div>
+        <h3 class="event-name">Dobbin House Tavern</h3>
+        <p class="event-loc">89 Steinwehr Ave · Upstairs Dining Room</p>
+        <p class="event-desc">Traditional, high-quality, and historic. Built in 1776 and pressed into service as a hospital after the battle. The upstairs dining room is refined and a world apart from the street below.</p>
+        <div class="event-reservation">Reservation Confirmed</div>
+        <div class="event-callout">After the battle, every church and tavern in town was filled with wounded. The Dobbin House was no exception.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-div" data-between="mon-tue"><div class="div-line"></div><span class="div-mark">Tuesday, March 17 · St. Patrick's Day</span><div class="div-line"></div></div>
+
+<!-- ══ TUESDAY, MARCH 17 ══ -->
+<section class="day" data-day="tue">
+  <div class="day-cap">
+    <div>
+      <p class="day-num">Day Three · Tuesday, March 17 · St. Patrick's Day</p>
+      <h2 class="day-title">Conference Closes &amp; Town at Night</h2>
+    </div>
+    <span class="day-badge maic">MAIC · Morning · Free Evening</span>
+  </div>
+  <div class="events">
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">8:30 AM</span><span class="event-time-end">9:30 AM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-walk">State Mtg</span></div>
+        <h3 class="event-name">Innkeepers from Other States</h3>
+        <p class="event-speaker">Facilitator: Sharon Tillman · Georges on York B&amp;B</p>
+        <p class="event-loc">Salon F</p>
+        <p class="event-desc">Networking and discussion for innkeepers from MD, NY, and all states outside PA and VA. With Carlos.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Break — Tradeshow Marketplace</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">9:45 AM</span><span class="event-time-end">10:45 AM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Smart Cooking</span></div>
+        <h3 class="event-name">Cooking for a Crowd without the Casserole</h3>
+        <p class="event-speaker">Chef Gerry · Sugar Tree Inn, VA</p>
+        <p class="event-loc">Salon F</p>
+        <p class="event-desc">Scale fresh recipes for 6–26 guests; batch cooking, make-ahead meals, and efficient prep for peak-season breakfasts. The kind of practical knowledge that pays off immediately.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Break — Tradeshow Marketplace</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">11:00 AM</span><span class="event-time-end">12:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Operations &amp; Business</span></div>
+        <h3 class="event-name">What's Protecting Your Guests and Your Property?</h3>
+        <p class="event-speaker">Chuck Heinlein &amp; Devlon Cowart · Pro Fire Safety, PA</p>
+        <p class="event-loc">Salon E</p>
+        <p class="event-desc">Fire, CO, flooding, freezing — why minimum compliance isn't enough and how to build a proper protection network for your B&amp;B. Essential due diligence for any property owner.</p>
+      </div>
+    </div>
+
+    <div class="break-note visible">Lunch · Logan Marketing Sponsor · Tradeshow 1:15–2pm</div>
+
+    <div class="event" data-type="solo">
+      <div class="event-time-col"><span class="event-time">2:00 PM</span><span class="event-time-end">3:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-solo">Alonso only</span><span class="event-tag tag-walk">Smart Cooking</span></div>
+        <h3 class="event-name">From Kitchen to Table: Smooth Breakfast Operations</h3>
+        <p class="event-speaker">Rachel Foster &amp; Debra Miller · Apple Pony / Kane Manor</p>
+        <p class="event-loc">Salon F</p>
+        <p class="event-desc">Breakfast logistics, food safety, allergy management, budget, and marketing — an operations focus, not just recipes. A practical close to two days of cooking-track content.</p>
+      </div>
+    </div>
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">3:00 PM</span><span class="event-time-end">3:15 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span></div>
+        <h3 class="event-name">Closing Remarks &amp; Award of Prizes</h3>
+        <p class="event-loc">Wyndham Hotel · Gettysburg</p>
+        <p class="event-desc">Conference closes. The afternoon and evening are yours.</p>
+      </div>
+    </div>
+
+    <div class="event" data-type="landmark">
+      <div class="event-time-col"><span class="event-time">4:00 PM</span><span class="event-time-end">5:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-walk">Walk</span></div>
+        <h3 class="event-name">The Civilian Experience Walk</h3>
+        <p class="event-loc">Lincoln Square → Baltimore Street South</p>
+        <p class="event-desc">Walk the "Conflict Exchange" route. Look for the Witness Trees and building scars. Pass the Shriver House and the Jennie Wade House — ordinary homes caught in an extraordinary three days.</p>
+        <div class="event-callout teal">Best way to feel the town's DNA before the sun goes down.</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="landmark">
+      <div class="event-time-col"><span class="event-time">5:30 PM</span><span class="event-time-end">6:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-landmark">Landmark</span></div>
+        <h3 class="event-name">Sunset at the Soldiers' National Cemetery</h3>
+        <p class="event-loc">Soldiers' National Cemetery · Gettysburg</p>
+        <p class="event-desc">A short, brisk walk to the cemetery at dusk. Quiet, powerful, and offering a sweeping view of the horizon. This is the "Eye" of the Union fishhook line.</p>
+        <div class="event-callout red">~35°F with wind chill. Heaviest layers for this one.</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="dinner">
+      <div class="event-time-col"><span class="event-time">6:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-dinner">Dinner</span></div>
+        <h3 class="event-name">Sign of the Buck</h3>
+        <p class="event-loc">29 Chambersburg St · New American Brasserie</p>
+        <p class="event-desc">Upscale, calm, and a world away from the St. Patrick's Day crowds a few blocks over. New American menu in the historic Union Hotel.</p>
+        <div class="event-reservation">Reservation Confirmed</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="optional">
+      <div class="event-time-col"><span class="event-time">8:00 PM</span><span class="event-time-end">Late</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-optional">Optional</span></div>
+        <h3 class="event-name">The St. Paddy's Vibe Check</h3>
+        <p class="event-loc">Garryowen Irish Pub · O'Rorke's</p>
+        <p class="event-desc">Walk past Garryowen or O'Rorke's. If the live music sounds good and it's not wall-to-wall people, pop in for one drink. If it's packed — you've already had a great night.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="day-div" data-between="tue-wed"><div class="div-line"></div><span class="div-mark">Wednesday, March 18 · Impact Day</span><div class="div-line"></div></div>
+
+<!-- ══ WEDNESDAY, MARCH 18 ══ -->
+<section class="day" data-day="wed">
+  <div class="day-cap">
+    <div>
+      <p class="day-num">Day Four · Wednesday, March 18 · Final Day</p>
+      <h2 class="day-title">The Battlefield &amp; Road Home</h2>
+    </div>
+    <span class="day-badge final">Sightseeing · Checkout Day</span>
+  </div>
+  <div class="events">
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">9:00 AM</span><span class="event-time-end">10:00 AM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-morning">Morning</span></div>
+        <h3 class="event-name">Breakfast &amp; Hotel Check-Out</h3>
+        <p class="event-loc">Wyndham Gettysburg</p>
+        <p class="event-desc">Fuel up, settle the bill, and load the car. A full morning on hallowed ground awaits.</p>
+      </div>
+    </div>
+
+    <div class="event" data-type="museum">
+      <div class="event-time-col"><span class="event-time">10:00 AM</span><span class="event-time-end">11:30 AM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-museum">Museum</span></div>
+        <h3 class="event-name">Museum &amp; Cyclorama</h3>
+        <p class="event-loc">1195 Baltimore Pike · Visitor Center · (717) 334-1243</p>
+        <p class="event-desc">Indoor, warm, and essential. The Cyclorama is a massive 360° painting placing you at the center of Pickett's Charge on July 3rd, 1863. The museum builds the full arc of the battle before you walk the ground itself.</p>
+        <div class="event-callout blue">Don't skip this — it makes everything on the battlefield legible.</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="landmark">
+      <div class="event-time-col"><span class="event-time">11:30 AM</span><span class="event-time-end">1:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-battlefield">Battlefield</span></div>
+        <h3 class="event-name">Little Round Top — The Tactical View</h3>
+        <p class="event-loc">Little Round Top · Gettysburg National Military Park</p>
+        <p class="event-desc">The "Barb" of the fishhook. Drive to the summit and see the whole field: Devil's Den, the Wheatfield, Cemetery Ridge, and the open valley where Pickett's men crossed. On July 2nd, Chamberlain held this hill by a bayonet charge. The Union held.</p>
+        <div class="event-callout red">~41°F — windiest spot in the county. Gloves and scarf not optional.</div>
+      </div>
+    </div>
+
+    <div class="event" data-type="shared">
+      <div class="event-time-col"><span class="event-time">1:00 PM</span><span class="event-time-end">2:00 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-shared">Shared</span><span class="event-tag tag-lunch">Farewell Lunch</span></div>
+        <h3 class="event-name">Food 101</h3>
+        <p class="event-loc">101 Chambersburg St · New American · BYOB</p>
+        <p class="event-desc">Casual, quick, genuinely good. Everything scratch-made and locally sourced — salads, sandwiches, artisan pizzas. No reservation needed. In and out in an hour. Adams County Winery is next door if you want a bottle for the road.</p>
+      </div>
+    </div>
+
+    <div class="event" data-type="depart">
+      <div class="event-time-col"><span class="event-time">2:30 PM</span></div>
+      <div class="event-spine"><div class="spine-dot"></div><div class="spine-line"></div></div>
+      <div class="event-body">
+        <div class="event-tags"><span class="event-tag tag-depart">Depart</span></div>
+        <h3 class="event-name">Car Return &amp; Road to Atlanta</h3>
+        <p class="event-desc">Head south with a full picture of what happened here and why it still matters. Lincoln said it in 272 words. Two minutes. The other guy spoke for two hours and no one remembers him.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     HISTORICAL APPENDIX
+══════════════════════════════════════════ -->
+<section class="appendix" data-day="appendix">
+  <div class="appendix-header">
+    <span class="appendix-eyebrow">For the Curious Traveler</span>
+    <h2 class="appendix-title">A Short History of Gettysburg</h2>
+    <p class="appendix-sub">What you're walking through, and why it still matters</p>
+    <div class="appendix-rule">
+      <div class="appendix-rule-line"></div>
+      <div class="appendix-rule-diamond"></div>
+      <div class="appendix-rule-line"></div>
+    </div>
+  </div>
+
+  <div class="appendix-sections">
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">01</div><div class="app-label">The Town</div><div class="app-sublabel">Before the Battle</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">A Crossroads, Not a Target</h3>
+        <p class="app-body">In the summer of 1863, Gettysburg was a quiet market town of about 2,400 people sitting at the intersection of ten roads. Nobody planned to fight there. The battle began almost by accident on July 1st when Confederate forces looking for a supply of shoes stumbled into Union cavalry on the Chambersburg Pike. Within hours, both armies were funneling tens of thousands of men toward this sleepy Pennsylvania crossroads. <strong>The town had no say in what was about to happen to it.</strong> Residents hid in cellars, watched from windows, and woke up the next morning to find their streets, homes, churches, and barns turned into a battlefield — and then, for months afterward, into a vast hospital.</p>
+        <div class="app-fact">2,400 residents · 10 roads converging · ~165,000 soldiers arrived in 3 days</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">02</div><div class="app-label">The Battle</div><div class="app-sublabel">July 1–3, 1863</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">Three Days That Turned the War</h3>
+        <p class="app-body">The fighting lasted three days. On Day One (July 1), the Union was pushed back through town and up onto the high ground south of it — Cemetery Hill and Culp's Hill. On Day Two (July 2), Confederate General Longstreet attacked both flanks. The most famous moment was at <strong>Little Round Top</strong>, where Colonel Joshua Chamberlain and the 20th Maine — out of ammunition — fixed bayonets and charged downhill, holding the Union's far left and possibly saving the entire army. On Day Three (July 3), General Lee ordered what became known as <strong>Pickett's Charge</strong>: roughly 12,500 Confederate soldiers marching a mile across open ground into concentrated Union fire. It broke. The Confederate army never invaded the North again. Gettysburg was the turning point — not the end of the war, but the moment the outcome became clear.</p>
+        <div class="app-fact">~51,000 total casualties across both sides · the deadliest battle ever fought in North America</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">03</div><div class="app-label">The Fishhook</div><div class="app-sublabel">Reading the Landscape</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">How to See the Battlefield</h3>
+        <p class="app-body">The Union line ran roughly in the shape of a fishhook — a curved top anchored at Cemetery Hill and Culp's Hill (the "Eye"), running south along Cemetery Ridge, and hooking sharply at <strong>Little Round Top</strong> (the "Barb") at the southern end. This shape was actually a strategic advantage: it was compact enough for the Union to shift troops quickly along interior lines, while the Confederates had to march much farther around the outside to coordinate attacks. When you stand on Little Round Top on Wednesday, you can see this entire geometry. The open ground where Pickett's men crossed on Day Three is visible to your north. Devil's Den — the boulder field where Confederate sharpshooters sheltered — is just below you. The whole terrible logic of the battle becomes visible from that one hilltop.</p>
+        <div class="app-fact">Tuesday = the Eye (Cemetery). Wednesday = the Barb (Little Round Top). Walk both and the battle makes sense.</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">04</div><div class="app-label">The Civilians</div><div class="app-sublabel">The Town's Experience</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">What the Walk Is Really About</h3>
+        <p class="app-body">The "Civilian Experience Walk" on Tuesday isn't just a stroll — it's a way of seeing the battle from the perspective of the 2,400 people who didn't get to leave. <strong>Jennie Wade</strong>, whose house you'll pass, was the only civilian killed in the battle — shot by a stray bullet while making bread for Union soldiers on July 3rd. The Shriver House was occupied by Confederate sharpshooters who used the upper floors as a firing position; the family had fled but the house still bears the scars. The "Witness Trees" — old enough to have been alive in 1863 — are marked throughout town. Every building you eat in, drink in, or walk past was almost certainly pressed into service as a hospital. The smell reportedly lingered for months.</p>
+        <div class="app-fact">Only one civilian death recorded · every public building became a hospital · recovery took years</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">05</div><div class="app-label">The Address</div><div class="app-sublabel">November 19, 1863</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">272 Words That Redefined Everything</h3>
+        <p class="app-body">Four and a half months after the battle, Lincoln came to Gettysburg to dedicate the new Soldiers' National Cemetery — the ground you'll stand on at sunset Tuesday. He was not the main speaker. That was Edward Everett, a former senator and celebrated orator who spoke for <strong>two hours</strong> covering the battle in exhaustive detail. Lincoln followed with 272 words that took roughly two minutes. The crowd applauded politely but there was no great reaction on the day. Everett himself wrote to Lincoln afterward: "I should be glad if I could flatter myself that I came as near to the central idea of the occasion in two hours as you did in two minutes." What Lincoln did in those two minutes was quietly radical: he reframed the war not as a fight to preserve the Union, but as a test of whether a democratic republic could survive at all — and he redefined the founding of the country to include the promise of equality. <strong>It is the most important short speech in American history.</strong></p>
+        <div class="app-fact">272 words · ~2 minutes · 5 known manuscript drafts · Everett's 2-hour speech is forgotten</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">06</div><div class="app-label">The Dobbin House</div><div class="app-sublabel">Where You'll Eat Monday</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">The Oldest Building in Gettysburg</h3>
+        <p class="app-body">The Dobbin House was built in 1776 — the same year the Declaration of Independence was signed — by Reverend Alexander Dobbin, a Presbyterian minister and schoolteacher who came from Ireland. It predates the town of Gettysburg itself. Before the Civil War it was a stop on the Underground Railroad; there is a hidden chamber beneath the house where freedom seekers are believed to have sheltered. During the battle and in the months that followed, like virtually every large structure in town, it was converted into a field hospital. When you sit down for dinner Monday evening, you are eating in a building that has been standing for 250 years and has seen rather more history than most.</p>
+        <div class="app-fact">Built 1776 · Underground Railroad stop · field hospital 1863 · oldest structure in Gettysburg</div>
+      </div>
+    </div>
+
+    <div class="app-section" data-scroll>
+      <div class="app-label-col"><div class="app-num">07</div><div class="app-label">The Cyclorama</div><div class="app-sublabel">Wednesday Morning</div></div>
+      <div class="app-content-col">
+        <h3 class="app-title">A 360° Painting of the Decisive Moment</h3>
+        <p class="app-body">The Cyclorama is a circular oil painting 377 feet in circumference and 42 feet tall, depicting Pickett's Charge at the moment the Confederate line reached the Union center — the "High Water Mark of the Confederacy." It was painted by French artist Paul Philippoteaux between 1882 and 1884, based on interviews with veterans and careful study of the terrain. Cycloramas were the IMAX of the 19th century — immersive, spectacular, designed to make the viewer feel present at the event. This one was exhibited commercially in Boston and Chicago before ending up in Gettysburg. <strong>Standing at the center of it, you can see the entire geography of the assault in one sweep</strong> — the open ground, the stone wall, the trees — and understand exactly what those men walked into.</p>
+        <div class="app-fact">377 ft circumference · 42 ft tall · painted 1882–84 · based on veteran interviews and site surveys</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  Alonso Prado-Masias · MAIC 2026 · Gettysburg, PA · March 15–18
+</footer>
+
+
+
+<script>
+function filterDay(btn, day) {
+  // update active button
+  document.querySelectorAll('.hero-day').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  var days    = document.querySelectorAll('[data-day]');
+  var divs    = document.querySelectorAll('[data-between]');
+
+  if (day === 'all') {
+    days.forEach(el => el.classList.remove('day-hidden'));
+    divs.forEach(el => el.classList.remove('day-hidden'));
+    return;
+  }
+
+  // hide/show sections
+  days.forEach(function(el) {
+    el.classList.toggle('day-hidden', el.dataset.day !== day);
+  });
+
+  // hide all dividers then show only the one preceding visible day
+  divs.forEach(function(el) {
+    var between = el.dataset.between.split('-');
+    // show divider only in "all" mode — hide in single-day mode
+    el.classList.add('day-hidden');
+  });
+
+  // scroll to top of content smoothly
+  var target = document.querySelector('[data-day="' + day + '"]');
+  if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+}
+</script>
+
+</body>
+</html>
