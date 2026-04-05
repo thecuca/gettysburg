@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asheville — Para Lucia y Wieland</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #0E0E0C;
+  --surface: #161614;
+  --surface2: #1E1E1B;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #F0EDE6;
+  --muted: rgba(240,237,230,0.45);
+  --muted2: rgba(240,237,230,0.25);
+  --gold: #C8952A;
+  --gold-dim: rgba(200,149,42,0.15);
+  --sage: #6B9B67;
+  --sage-dim: rgba(107,155,103,0.12);
+  --rust: #C24A1A;
+  --rust-dim: rgba(194,74,26,0.12);
+  --blue-tag: rgba(59,130,246,0.15);
+  --blue-text: #93C5FD;
+  --green-tag: rgba(34,197,94,0.12);
+  --green-text: #86EFAC;
+  --amber-tag: rgba(245,158,11,0.15);
+  --amber-text: #FCD34D;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ── COVER ── */
+.cover {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.cover-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cover-orb1 {
+  position: absolute;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,149,42,0.14) 0%, transparent 65%);
+  top: -80px; right: -80px;
+  pointer-events: none;
+}
+
+.cover-orb2 {
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,155,103,0.1) 0%, transparent 65%);
+  bottom: 80px; left: -60px;
+  pointer-events: none;
+}
+
+.cover-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cover-eyebrow {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.cover-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.cover-body {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 0 2rem;
+}
+
+.cover-kicker {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.2s forwards;
+}
+
+.cover-h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.8rem, 9vw, 3.6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.35s forwards;
+}
+
+.cover-h1 .accent {
+  display: block;
+  background: linear-gradient(135deg, var(--gold) 0%, #E8B84B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-sub {
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.5s forwards;
+}
+
+.cover-names {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.65s forwards;
+}
+
+.cover-names-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+}
+
+.cover-names-text {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(200,149,42,0.8);
+}
+
+.cover-bottom {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeSlideUp 0.9s 0.8s forwards;
+}
+
+.cover-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cover-nav a {
+  background: var(--surface);
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: background 0.2s;
+}
+
+.cover-nav a:hover { background: var(--surface2); }
+
+.nav-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ── STICKY NAV ── */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14,14,12,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 0.5rem;
+}
+
+.sticky-nav::-webkit-scrollbar { display: none; }
+
+.sticky-nav a {
+  flex-shrink: 0;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.85rem 0.85rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.sticky-nav a:hover,
+.sticky-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── SECTIONS ── */
+.section {
+  padding: 2.5rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.section-tag::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.section-h2 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+.prose {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.prose + .prose { margin-top: 0.75rem; }
+
+/* ── CALLOUT ── */
+.callout {
+  background: var(--gold-dim);
+  border: 1px solid rgba(200,149,42,0.25);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  margin: 1.25rem 0;
+}
+
+.callout-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.callout p {
+  font-size: 0.9rem;
+  color: rgba(240,237,230,0.7);
+  line-height: 1.65;
+}
+
+.callout p strong { color: var(--text); font-weight: 500; }
+
+/* ── ACCORDION CARDS ── */
+.accordion { display: flex; flex-direction: column; gap: 1px; margin: 1.25rem 0; }
+
+.acc-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.acc-item.open { border-color: var(--border2); }
+
+.acc-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.acc-trigger-left { flex: 1; min-width: 0; }
+
+.acc-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.15rem;
+  color: var(--text);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.acc-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.acc-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 0.3rem; }
+
+.badge {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.badge-award { background: var(--amber-tag); color: var(--amber-text); }
+.badge-res   { background: var(--blue-tag);  color: var(--blue-text); }
+.badge-walk  { background: var(--green-tag); color: var(--green-text); }
+.badge-new   { background: var(--sage-dim);  color: var(--sage); border: 1px solid rgba(107,155,103,0.3); }
+
+.acc-chevron {
+  width: 20px; height: 20px;
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.acc-item.open .acc-chevron {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #000;
+  transform: rotate(180deg);
+}
+
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.acc-item.open .acc-body { max-height: 600px; }
+
+.acc-inner {
+  padding: 0 1.15rem 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.acc-desc {
+  font-size: 0.91rem;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-top: 0.85rem;
+}
+
+.acc-note {
+  margin-top: 0.6rem;
+  font-size: 0.83rem;
+  color: var(--sage);
+  font-style: italic;
+}
+
+.acc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.meta-icon { flex-shrink: 0; margin-top: 1px; opacity: 0.6; }
+.meta-text { color: rgba(240,237,230,0.5); }
+.meta-text strong { color: rgba(240,237,230,0.72); font-weight: 500; }
+
+/* ── NUMBERED LIST ── */
+.num-list { display: flex; flex-direction: column; gap: 0; margin: 1.25rem 0; }
+
+.num-item {
+  border-bottom: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.num-item:last-child { border-bottom: none; }
+
+.num-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem 0.5rem;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 0.85rem;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.num-toggle:hover { background: var(--surface); border-radius: 6px; }
+
+.num-badge {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: all 0.2s;
+  margin-top: 2px;
+}
+
+.num-item.open .num-badge {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #000;
+}
+
+.num-content { flex: 1; min-width: 0; }
+
+.num-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  display: block;
+  margin-bottom: 0;
+  line-height: 1.3;
+}
+
+.num-preview {
+  font-size: 0.8rem;
+  color: var(--muted2);
+  margin-top: 0.2rem;
+  display: block;
+  line-height: 1.4;
+}
+
+.num-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.num-item.open .num-body { max-height: 400px; }
+
+.num-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  padding: 0.5rem 0.5rem 1rem calc(36px + 0.85rem + 0.5rem);
+}
+
+/* ── AREA BLOCKS ── */
+.area-group { margin: 1.25rem 0; }
+
+.area-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.area-item:last-child { border-bottom: none; }
+
+.area-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.area-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.area-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── PILL ROW ── */
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 1.25rem 0; }
+
+.pill {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.pill.g { border-color: rgba(107,155,103,0.4); color: var(--sage); }
+
+/* ── DIVIDER ── */
+.rule { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+.sub-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1.5rem 0 0.75rem;
+}
+
+/* ── TIPS GRID ── */
+.tips-list { display: flex; flex-direction: column; gap: 0; }
+
+.tip-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.tip-item:last-child { border-bottom: none; }
+.tip-item.visible { opacity: 1; transform: translateY(0); }
+
+.tip-icon {
+  width: 32px; height: 32px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 0.91rem;
+  color: var(--muted);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.tip-text strong { color: var(--text); font-weight: 500; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.stat {
+  background: var(--surface);
+  padding: 1rem;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.62rem;
+  color: var(--muted2);
+  letter-spacing: 0.06em;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 3rem 1.75rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,149,42,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.footer-serif {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: rgba(240,237,230,0.6);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+  font-size: 0.72rem;
+  color: var(--muted2);
+  letter-spacing: 0.1em;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-grain"></div>
+  <div class="cover-orb1"></div>
+  <div class="cover-orb2"></div>
+
+  <div class="cover-top">
+    <span class="cover-eyebrow">Guía personal de Carlos &amp; Alonso</span>
+    <div class="cover-dot"></div>
+  </div>
+
+  <div class="cover-body">
+    <p class="cover-kicker">para ustedes dos,</p>
+    <h1 class="cover-h1">
+      Su tiempo<br>en
+      <span class="accent">Asheville.</span>
+    </h1>
+    <p class="cover-sub">Pasamos mucho tiempo aquí buscando propiedades y la ciudad nos enamoró. Montañas, arte, gastronomía de verdad y una de las casas más extraordinarias de América — todo a pocos kilómetros.</p>
+    <div class="cover-names">
+      <div class="cover-names-line"></div>
+      <span class="cover-names-text">Lucia &amp; Wieland</span>
+      <div class="cover-names-line" style="background: linear-gradient(to left, var(--gold), transparent);"></div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-nav">
+      <a href="#biltmore"><span class="nav-num">01</span><span class="nav-label">Biltmore Estate</span></a>
+      <a href="#downtown"><span class="nav-num">02</span><span class="nav-label">Centro y el RAD</span></a>
+      <a href="#dining"><span class="nav-num">03</span><span class="nav-label">D&oacute;nde comer</span></a>
+      <a href="#sweets"><span class="nav-num">04</span><span class="nav-label">Dulces y caf&eacute;</span></a>
+      <a href="#shopping"><span class="nav-num">05</span><span class="nav-label">De compras</span></a>
+      <a href="#tips"><span class="nav-num">06</span><span class="nav-label">Lo que saber</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <a href="#biltmore">Biltmore</a>
+  <a href="#downtown">Centro</a>
+  <a href="#dining">Comer</a>
+  <a href="#sweets">Dulces</a>
+  <a href="#shopping">Compras</a>
+  <a href="#tips">Consejos</a>
+</nav>
+
+<!-- INTRO -->
+<div class="section reveal" id="intro">
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">40</span>
+      <span class="stat-label">Lugares</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Reconocidos Michelin</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">2</span>
+      <span class="stat-label">Premios James Beard</span>
+    </div>
+  </div>
+  <p class="prose">Armamos esta guía para que no tengan que adivinar nada. Son los lugares a los que los llevaríamos nosotros mismos si estuviéramos ahí con ustedes.</p>
+</div>
+
+<!-- BILTMORE -->
+<div class="section reveal" id="biltmore">
+  <span class="section-tag">El plato fuerte</span>
+  <h2 class="section-h2">Biltmore <em>Estate</em></h2>
+
+  <p class="prose">No hay nada igual a Biltmore en Estados Unidos. El castillo de 250 habitaciones de George Vanderbilt fue terminado en 1895 y ocupa 8.000 acres de las Blue Ridge Mountains. Frederick Law Olmsted — el mismo que diseñó Central Park — trazó los jardines. Es un lugar que te deja sin palabras, y en el que podrían pasar dos días enteros.</p>
+
+  <div class="callout">
+    <p class="callout-label">Reserven antes de llegar</p>
+    <p>Biltmore funciona con entradas de acceso por horario y los turnos de la mañana se agotan rápido. Compren en <strong>biltmore.com</strong> en cuanto tengan las fechas. El recinto abre a las 9 AM todos los días. Si llegan después de las 4 PM, pueden validar el ticket en la Reception Center y lo extienden al día siguiente.</p>
+  </div>
+
+  <p class="prose">Planeen al menos un día completo — idealmente dos. Si solo tienen uno, lleguen temprano, vayan directo a la casa y dejen Antler Hill Village y la bodega para la tarde. Una vez adentro no hay razón para salir.</p>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Las 10 cosas imprescindibles</p>
+
+  <div class="num-list" id="biltmoreList">
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">1</div>
+        <div class="num-content">
+          <span class="num-title">La Casa Biltmore</span>
+          <span class="num-preview">El hogar privado más grande de América</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">El hogar privado más grande de América. Tomen la audioguía apenas entren — es excelente. Reserven al menos dos horas. Si quieren ir más a fondo, el Rooftop Tour explica la arquitectura y la construcción; el Backstairs Tour los lleva por los pasajes ocultos del servicio.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">2</div>
+        <div class="num-content">
+          <span class="num-title">Los Jardines</span>
+          <span class="num-preview">Obra maestra de Frederick Law Olmsted</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">Desde la casa, caminen por los Italian Gardens con sus estanques, luego el Walled Garden de cuatro acres, el Azalea Garden y el Spring Garden. En primavera el Walled Garden florece con miles de tulipanes; el Azalea Garden está en su mejor momento en abril y mayo.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">3</div>
+        <div class="num-content">
+          <span class="num-title">El Conservatorio</span>
+          <span class="num-preview">Invernadero tropical abierto todo el año</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">Junto al Walled Garden — un invernadero tropical abierto todo el año con una preciosa colección de orquídeas. Una parada tranquila y sin apuro.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">4</div>
+        <div class="num-content">
+          <span class="num-title">Bass Pond y los Senderos</span>
+          <span class="num-preview">El rincón más romántico de la finca</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">Para una caminata más larga, sigan las señales hacia el Bass Pond — un rincón más tranquilo y romántico. The Boat House es especialmente bonito. El Meadow Trail tiene flores silvestres en primavera; el Woodland Trail explota de azaleas.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">5</div>
+        <div class="num-content">
+          <span class="num-title">La mejor foto de la finca</span>
+          <span class="num-preview">El spot secreto junto al Lagoon</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">En el camino entre la casa y la bodega, busquen un pequeño lago llamado Lagoon a su izquierda. Un camino sin asfaltar al fondo cruza un puente pequeño con una vista impresionante de la parte trasera de la casa. También es perfecto para un picnic.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">6</div>
+        <div class="num-content">
+          <span class="num-title">Antler Hill Village</span>
+          <span class="num-preview">El pueblo de la finca con bodega y actividades</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">Un pueblo relajado para después de recorrer la casa. Restaurantes, tiendas, exposiciones rotativas en el Legacy, entretenimiento en vivo en el Village Green y el histórico granero de 1902. También es la base para actividades al aire libre como equitación y ciclismo.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">7</div>
+        <div class="num-content">
+          <span class="num-title">La Bodega</span>
+          <span class="num-preview">La más visitada de América — y muy buena</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">La bodega más visitada de América, y genuinamente buena. Las degustaciones están incluidas en la entrada. Exploren la Wine Shop, cenen en The Bistro, o relájense en el Wine Bar bajo el reloj. La bodega abre hasta las 8 PM — perfecto para cerrar el día.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">8</div>
+        <div class="num-content">
+          <span class="num-title">La Granja de Antler Hill</span>
+          <span class="num-preview">Patrimonio agrícola en el granero de 1902</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">El patrimonio agrícola de Biltmore en el granero de 1902. Conozcan caballos de tiro, terneros, corderos y gallinas. Observen al herrero o a los carpinteros trabajar. Un rincón encantador y sin prisa.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">9</div>
+        <div class="num-content">
+          <span class="num-title">Actividades al Aire Libre</span>
+          <span class="num-preview">Desde equitación hasta pesca con mosca</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">El Outdoor Adventure Center en Antler Hill Village organiza ciclismo, paseos en carruaje, pesca con mosca, tours en Segway, equitación y excursiones en río. Vale la pena revisar qué hay disponible para sus fechas.</p></div>
+    </div>
+    <div class="num-item">
+      <button class="num-toggle" onclick="toggleNum(this)">
+        <div class="num-badge">10</div>
+        <div class="num-content">
+          <span class="num-title">Luminere — de noche</span>
+          <span class="num-preview">Nueva experiencia nocturna en 2026</span>
+        </div>
+      </button>
+      <div class="num-body"><p class="num-desc">Novedad en 2026. Una experiencia multisensorial de luz y sonido en noches selectas del 26 de marzo al octubre. Siete instalaciones iluminadas con proyecciones sobre la casa y los jardines. Entradas separadas de la admisión diurna — consulten biltmore.com para las fechas disponibles.</p></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-label">Comer en la finca</p>
+    <p>Planeen comer adentro sin salir. <strong>Stable Café</strong> es encantador — sándwiches, hamburguesas y ensaladas en los establos reconvertidos. <strong>Cedric's Tavern</strong> tiene cerveza artesanal y terraza. <strong>The Bistro</strong> cerca de la bodega hace pizzas al horno de leña. Todo incluido con su entrada.</p>
+  </div>
+</div>
+
+<!-- DOWNTOWN & RAD -->
+<div class="section reveal" id="downtown">
+  <span class="section-tag">La ciudad en sí</span>
+  <h2 class="section-h2">Centro y <em>el RAD</em></h2>
+
+  <p class="prose">El centro de Asheville es compacto y muy caminable. Pack Square es el núcleo, con el Grove Arcade — un impresionante mercado interior gótico de 1929 — a una cuadra. La Basílica de Saint Lawrence merece una parada tranquila.</p>
+  <p class="prose">Un trayecto corto hacia el sur lleva al River Arts District — los locales lo llaman el RAD — donde vive el alma creativa de Asheville.</p>
+
+  <div class="accordion" id="downtownAcc">
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">River Arts District (el RAD)</span>
+          <span class="acc-sub">Estudios de artistas a orillas del río</span>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc">Antiguas fábricas y almacenes a orillas del French Broad River, convertidos en estudios de trabajo. Pueden ver a sopladores de vidrio, ceramistas, pintores y tejedores con las puertas abiertas y encantados de conversar. Planeen al menos 3 horas. El paseo fluvial Wilma Dykeman de 2 millas atraviesa el barrio junto al río.</p>
+          <p class="acc-note">Si su visita cae en un Segundo Sábado del mes, todo el barrio se anima con música en vivo, recorridos por galerías y vendedores por toda la zona.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Marquee en el RAD</span>
+          <span class="acc-sub">50.000 m² de arte, antigüedades y diseño</span>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc">Un mercado de 50.000 pies cuadrados con más de 300 artistas, anticuarios y creadores. Piezas de mediados del siglo XX, antigüedades, arte local y joyería artesanal. Abierto todos los días de 11 AM a 6 PM. Reconstruido después de las inundaciones del huracán Helene; reabrió en septiembre de 2025.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Basílica de Saint Lawrence</span>
+          <span class="acc-sub">La cúpula elíptica más grande de Norteamérica</span>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc">Uno de los edificios más hermosos de Carolina del Norte. La cúpula elíptica autoportante más grande de Norteamérica, creada por el ingeniero español Raphael Guastavino. Vale la pena entrar aunque sea un momento.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Grove Arcade</span>
+          <span class="acc-sub">Mercado interior de 1929 en el corazón del centro</span>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc">Un ornamentado mercado interior de 1929 lleno de tiendas locales, restaurantes y artesanos. Arquitectura preciosa y un lugar natural para detenerse a curiosear.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-label">Biltmore Village</p>
+    <p>Justo fuera de las puertas de la finca hay un encantador barrio de tiendas independientes, galerías y restaurantes. Media hora muy agradable después de visitar Biltmore antes de regresar al centro.</p>
+  </div>
+</div>
+
+<!-- DINING -->
+<div class="section reveal" id="dining">
+  <span class="section-tag">D&oacute;nde comer</span>
+  <h2 class="section-h2">Nuestros <em>favoritos</em></h2>
+
+  <p class="prose">Asheville sorprende con su nivel gastronómico. Dos ganadores del James Beard, cinco reconocimientos Michelin Bib Gourmand en 2025, y una buena selección de restaurantes de barrio con mucha personalidad. Aquí están los que les recomendamos.</p>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Para una ocasión especial — reserven</p>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Cúrate</span>
+          <div class="acc-badges">
+            <span class="badge badge-award">James Beard 2022</span>
+            <span class="badge badge-award">Michelin Bib 2025</span>
+          </div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Tapas españolas</p>
+          <p class="acc-desc">Tan bueno como dicen, y eso ya es decir mucho. Premio James Beard Outstanding Hospitality 2022 y Michelin Bib Gourmand 2025. El Jerez y la Sangría salen directamente del grifo. Vayan a cenar y quédense un rato.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">13 Biltmore Ave, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Mar–Jue 12–9:30 PM · Vie–Sáb 11 AM–10:30 PM · Dom 11 AM–9:30 PM · Cerrado lunes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Asheville Proper</span>
+          <div class="acc-badges"><span class="badge badge-res">Reservar</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Alta cocina a fuego vivo</p>
+          <p class="acc-desc">Si quieren una cena de verdad, este es el lugar. Todo cocinado en parrilla de madera dura — lomo, entrecot, chuletas de cerdo de corte doble. El tipo de comida que uno recuerda.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">1 Page Ave Suite 151, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun, Vie–Dom almuerzo 11 AM–2:30 PM · Cena desde las 5 PM · Cerrado martes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Luminosa</span>
+          <div class="acc-badges">
+            <span class="badge badge-award">Michelin Bib 2025</span>
+            <span class="badge badge-award">Estrella Verde Michelin</span>
+          </div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Italiano sostenible</p>
+          <p class="acc-desc">En el Flat Iron Hotel. Todo hecho en casa desde el pan al risotto, usando granjas y recolectores locales. Michelin Bib Gourmand y Estrella Verde por sostenibilidad. Southern Living lo nombró uno de los 20 Mejores Restaurantes Nuevos del Sur en 2025.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">20 Battery Park Ave, Flat Iron Building, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun–Jue 5–9 PM · Vie–Sáb 5–10 PM · Dom brunch 11 AM–2 PM, cena 5–9 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">RendezVous</span>
+          <div class="acc-badges"><span class="badge badge-res">Reservar</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Cocina francesa casera</p>
+          <p class="acc-desc">El dueño creció cerca de Lyon y trajo ese espíritu a Asheville. Patio cubierto tipo granero, canchas de pétanque y cocina francesa casera bien hecha. Los French Martinis y las papas fritas en grasa de pato son obligatorios. Barrio tranquilo, estacionamiento fácil.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">184 New Haw Creek Rd, East Asheville (10 min del centro)</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Todos los días 4–8:30 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">The Market Place</span>
+          <div class="acc-badges"><span class="badge badge-award">Nominado James Beard 2025</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Cocina americana de temporada</p>
+          <p class="acc-desc">Todo de proveedores a menos de 100 millas. El chef William Dissen fue nominado para Outstanding Chef de EEUU en 2025. Cocina seria, sala encantadora.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">20 Wall St, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Mar–Sáb 5–9 PM · Dom brunch 10 AM–2 PM · Cerrado lunes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Jargon</span>
+          <div class="acc-badges"><span class="badge badge-res">Reservar</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Cocina americana con toque Nueva Orleans</p>
+          <p class="acc-desc">Menú creativo con influencia de Nueva Orleans y un patio cubierto recientemente para disfrutar todo el año. El dueño está muy presente y se nota.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">715 Haywood Rd, West Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun, Jue–Dom 5–9 PM (Vie–Sáb hasta las 10) · Cerrado mar–mié</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Favoritos del barrio — sin reserva</p>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Chai Pani</span>
+          <div class="acc-badges"><span class="badge badge-award">James Beard 2022</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Cocina callejera india</p>
+          <p class="acc-desc">James Beard Outstanding Restaurant 2022. La okra frita y el chicken pakora son innegociables. Abierto para comer y para cenar desde las 5 PM. Sin reserva, pero vale cualquier espera.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">32 Banks Ave, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Todos los días 11 AM–3 PM y 5–9 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Tall John's</span>
+          <div class="acc-badges"><span class="badge badge-award">Michelin Bib 2025</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Clásicos americanos</p>
+          <p class="acc-desc">Elegido Mejor Restaurante Nuevo de 2023 y luego Michelin Bib Gourmand en 2025. Clásicos hechos con cuidado de verdad.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">152 Montford Ave, barrio Montford</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun–Sáb 4–9 PM · Dom brunch 9 AM–2 PM, cena 4–9 PM</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Salsa's</span>
+          <div class="acc-badges"><span class="badge badge-walk">Sin reserva</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Latino · Mexicano y caribeño</p>
+          <p class="acc-desc">Premiado y generoso. Las raciones son tan grandes que compartir un plato principal es una buena idea de verdad. Muy buenas opciones vegetarianas y sin gluten.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">6 Patton Ave, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Jue–Dom 11 AM–3 PM y 5–9 PM · Cerrado lun–mié</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Baby Bull</span>
+          <div class="acc-badges"><span class="badge badge-walk">Sin reserva</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Hamburguesas</p>
+          <p class="acc-desc">Del equipo de Bull &amp; Beggar — casual, hamburguesas muy buenas y una carta de vinos y cervezas sorprendentemente excelente. Abierto miércoles a lunes, de 12 a 9 PM (domingos hasta las 8).</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">1 Roberts St, River Arts District</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Mié–Dom 12–8/9 PM · Cerrado martes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left">
+          <span class="acc-name">Huli Sue's</span>
+          <div class="acc-badges"><span class="badge badge-walk">Sin reserva</span></div>
+        </div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-sub" style="padding-top:0.75rem; color:var(--sage); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;">Hawaiano · BBQ tejano</p>
+          <p class="acc-desc">BBQ estilo Texas con toque hawaiano. Prueben el Mochiko Chicken. Y sí, uno de los mejores Mai Tais de Asheville.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">1 Page Ave Suite 150, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun, Jue–Dom 12–8 PM · Cerrado mar–mié</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sub-heading">BBQ — el gran debate de Carolina del Norte</p>
+
+  <div class="accordion">
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Luella's</span><span class="acc-sub">Muy cerca del centro, grandes hush puppies</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">A pocos minutos del centro. Buen BBQ, grandes hush puppies.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">501 Merrimon Ave, North Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Todos los días 11 AM–9 PM</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Haywood Smokehouse</span><span class="acc-sub">Vale el viaje — ahumado de verdad</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Vale el trayecto. Un ahumador serio y uno de los favoritos de los locales.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">79 Elysinia Ave, Waynesville (35 min de Asheville)</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Mié–Jue 11 AM–8 PM · Vie–Sáb 11 AM–9 PM · Cerrado dom–mar</span></div>
+          </div></div></div>
+    </div>
+  </div>
+
+  <div class="pill-row">
+    <span class="pill g">Sin gluten: Nine Mile, Salsa's, Posana, Chai Pani</span>
+    <span class="pill g">Vegetariano: Plant, Chai Pani, Posana</span>
+    <span class="pill">Terraza: RendezVous, Bull &amp; Beggar, Sunny Point</span>
+    <span class="pill">Reservas por Resy u OpenTable</span>
+  </div>
+</div>
+
+<!-- SWEETS -->
+<div class="section reveal" id="sweets">
+  <span class="section-tag">Azúcar y cafeína</span>
+  <h2 class="section-h2">Dulces y <em>café</em></h2>
+  <p class="prose">Asheville se toma muy en serio sus dulces. Aquí van los que les señalaríamos:</p>
+
+  <div class="accordion" style="margin-top:1.25rem;">
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Old Europe</span><span class="acc-sub">Institución local desde 1994</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Una institución local desde 1994. Pasteles, macarons, éclairs, tortas y café de verdad. Imposible salir con solo una cosa.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">18 Broadway St, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Todos los días 7:30 AM–10 PM (Vie–Sáb hasta las 11 PM)</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Sunshine Sammies</span><span class="acc-sub">Los mejores sándwiches de helado de la ciudad</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Helado artesanal en pequeños lotes en Lexington Avenue, entre galletas recién horneadas con el punto justo de crocante para aguantar todo. No se lo pierdan.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">99 S Lexington Ave, Downtown Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun–Jue 1–9 PM · Vie–Sáb 1–10 PM · Cerrado domingo</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Hole Donuts</span><span class="acc-sub">Hechos al momento, servidos calientes</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Hechos a pedido, solo cuatro sabores a la vez, servidos calientes recién salidos de la freidora. El donut más liviano que ninguno de los dos ha probado.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">168 Haywood Rd, West Asheville</span></div>
+            <div class="meta-row"><span class="meta-icon">🕐</span><span class="meta-text">Lun, Mié–Dom 8 AM–1 PM · Cerrado martes</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Sweets &amp; Seats</span><span class="acc-sub">Café y dulces en el centro, pedido por QR</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">En el centro, con buen café, bebidas de frutas, macarons y tortas. Pidan desde la mesa con código QR. Muy cómodo.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">Corner of Lexington Ave &amp; Walnut St, Downtown Asheville</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">Baked Pie Company</span><span class="acc-sub">Mucho más que tartas tradicionales</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Mucho más allá de lo tradicional. Tartas keto, sin gluten, sin azúcar y veganas. Pregunten por el "pie fight" — 3 o 4 mini porciones con helado.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">Múltiples ubicaciones — la principal en 723 Haywood Rd, West Asheville</span></div>
+          </div></div></div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-trigger" onclick="toggleAcc(this)">
+        <div class="acc-trigger-left"><span class="acc-name">The Hop</span><span class="acc-sub">Helado casero desde 1978</span></div>
+        <div class="acc-chevron">&#8964;</div>
+      </button>
+      <div class="acc-body"><div class="acc-inner"><p class="acc-desc">Sirviendo helado desde 1978. Opciones veganas y de leche, sabores completamente caseros. Un clásico auténtico de Asheville.</p>
+          <div class="acc-meta">
+            <div class="meta-row"><span class="meta-icon">📍</span><span class="meta-text">507 Merrimon Ave, North Asheville (también en 640 Merrimon Ave)</span></div>
+          </div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOPPING -->
+<div class="section reveal" id="shopping">
+  <span class="section-tag">De compras</span>
+  <h2 class="section-h2">Shopping en <em>Asheville</em></h2>
+
+  <p class="prose">Las tiendas de Asheville apuestan fuerte por lo local — librerías independientes, artistas en activo, mercados de antigüedades y artesanos de todo tipo. Aquí lo dividimos por zonas.</p>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Centro</p>
+
+  <div class="area-group">
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Woolworth Walk &amp; The Kress Emporium</p>
+        <p class="area-desc">Dos antiguos almacenes reconvertidos en espacios para docenas de artistas locales. Woolworth Walk conserva la barra de almuerzo original — vale la pena parar por un sándwich o un batido.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Malaprop's Bookstore &amp; Café</p>
+        <p class="area-desc">Más de 40 años en el centro y regularmente elegida una de las mejores librerías independientes del país. También tienen Downtown Books and News para libros usados y de colección. Si prefieren hojear con champán en vez de café, Battery Park Book Exchange tiene barra y libros coleccionables.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Mast General Store</p>
+        <p class="area-desc">Un original de Carolina del Norte. Marcas outdoor, equipo, calzado, hierro fundido, accesorios de cocina, productos locales y — lo más importante — barriles de caramelos a la antigua.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Asheville Bee Charmer</p>
+        <p class="area-desc">Muchos sabores de miel y accesorios relacionados, con una barra de degustación para elegir mejor. Una parada genuinamente divertida y diferente.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Recuerdos y regalos</p>
+        <p class="area-desc">Duncan &amp; York y Delighted tienen souvenirs de Asheville y una gama más amplia de regalos — joyería, cristalería y cosas que realmente van a querer llevarse. Para ropa, Hazel Twenty y Frock &amp; Caravan son locales y valen la pena.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Tops for Shoes</p>
+        <p class="area-desc">Un clásico de Asheville desde hace más de 80 años, aún de gestión familiar. Gran variedad para todas las edades y estilos, y una sección de ofertas que merece una mirada.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Antigüedades</p>
+
+  <div class="area-group">
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Marquee en el RAD</p>
+        <p class="area-desc">Ya mencionado para explorar, pero merece repetirse aquí. Piezas mid-century, antigüedades y objetos recuperados junto a artistas locales. El ambiente es mercado callejero europeo con espíritu creativo de Asheville. Abierto todos los días de 11 AM a 6 PM.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Antique Tobacco Barn</p>
+        <p class="area-desc">Una de las tiendas de antigüedades más antiguas de Asheville, ideal para piezas grandes — muebles, elementos arquitectónicos inusuales, puertas y rejas. Se recuperó de las inundaciones del huracán Helene y reabrió en junio de 2025. Abierto de 10 AM a 6 PM, siete días.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Sweeten Creek Antiques</p>
+        <p class="area-desc">Un gran espacio con puestos de múltiples vendedores que cubren desde postales hasta muebles completos. Ideal para explorar sin un objetivo concreto.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sub-heading">West Asheville</p>
+
+  <div class="area-group">
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Whist &amp; Provisions Mercantile</p>
+        <p class="area-desc">Perfectos para tarjetas, regalos y productos de fabricación local. El tipo de tiendas donde uno entra a curiosear 20 minutos y se queda una hora.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Firestorm Co-Op</p>
+        <p class="area-desc">Una librería de gestión colectiva conocida por títulos que a veces cuesta encontrar en otros lados, y por devolver los beneficios a la comunidad. Una muy buena librería.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sub-heading">Vale el paseo</p>
+
+  <div class="area-group">
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Black Mountain</p>
+        <p class="area-desc">A unos 15 kilómetros al este — un tranquilo pueblo de montaña con un lindo centro lleno de tiendas y restaurantes. Black Mountain Home Accents (no se dejen engañar por el letrero de quilts — hay mucho más adentro) y Europa, con objetos y decoración de toda Europa, merecen una parada.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Weaverville</p>
+        <p class="area-desc">Justo al norte de Asheville con una encantadora calle principal. Curtis Wright Outfitters tiene equipo de pesca y — entre otras cosas — clases de cetrería. Sanctuary of Stuff tiene joyería, cerámica y productos locales.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <div class="area-dot"></div>
+      <div>
+        <p class="area-name">Biltmore Park (sur de Asheville)</p>
+        <p class="area-desc">Una zona mixta comercial y residencial con REI, Barnes &amp; Noble, Athleta, Orvis y varios buenos restaurantes. Un desvío que vale la pena si necesitan equipo outdoor o prefieren una tarde de compras más tranquila.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="section reveal" id="tips">
+  <span class="section-tag">Lo que saber</span>
+  <h2 class="section-h2">Consejos <em>prácticos</em></h2>
+
+  <div class="tips-list" id="tipsList">
+    <div class="tip-item">
+      <div class="tip-icon">🎟</div>
+      <p class="tip-text"><strong>Compren las entradas de Biltmore en biltmore.com</strong> en cuanto tengan las fechas. Los turnos de la mañana se agotan rápido, especialmente los fines de semana. Los días de semana suelen estar menos concurridos y a veces son más baratos.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">🏰</div>
+      <p class="tip-text"><strong>La finca es un mundo propio.</strong> Una vez adentro no hay razón para salir a comer. Planeen comer en el recinto y tómense el día entero para disfrutarla sin apuro.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">🕓</div>
+      <p class="tip-text"><strong>¿Llegan después de las 4 PM?</strong> Su ticket se amplía. Paren en la Reception &amp; Ticket Center y lo validarán para incluir el día siguiente — y normalmente pueden agregar ese segundo día a muy buen precio.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">📱</div>
+      <p class="tip-text"><strong>Reserven restaurantes en cuanto tengan fechas.</strong> Cúrate, RendezVous, Luminosa y Asheville Proper se llenan. Usen Resy u OpenTable y no lo dejen para después.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">👟</div>
+      <p class="tip-text"><strong>Zapatos cómodos, sin negociación.</strong> Tanto Biltmore como el RAD implican mucho caminar. La casa sola son 1,5&ndash;2 horas a pie, y los jardines encima de eso.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">✨</div>
+      <p class="tip-text"><strong>Revisen las fechas de Luminere.</strong> La nueva experiencia nocturna de Biltmore corre noches selectas del 26 de marzo al octubre de 2026. Las entradas son separadas de la admisión diurna — vale incluirla si el horario les funciona.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">🚗</div>
+      <p class="tip-text"><strong>Manejen hasta Biltmore, no dependan del rideshare.</strong> El estacionamiento es gratis. La señal del celular dentro de la finca puede ser irregular y los taxis no circulan por los terrenos.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">🎨</div>
+      <p class="tip-text"><strong>Los Segundos Sábados en el RAD</strong> valen organizar el viaje a su alrededor si pueden. Todo el barrio se activa mensualmente con música, recorridos por galerías y vendedores por toda la zona.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">🐾</div>
+      <p class="tip-text"><strong>¿Viajan con perro?</strong> Los terrenos de Biltmore admiten mascotas con correa, pero no dentro de la casa, la bodega ni los restaurantes. Téngalo en cuenta al planear el día.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="footer-serif">Que la pasen increíble, los dos.</span>
+  <p class="footer-sub">Con mucho cariño &mdash; Carlos &amp; Alonso</p>
+</div>
+
+<script>
+// Accordion toggle
+function toggleAcc(btn) {
+  const item = btn.closest('.acc-item');
+  const isOpen = item.classList.contains('open');
+  item.closest('.accordion')?.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Numbered list toggle
+function toggleNum(btn) {
+  const item = btn.closest('.num-item');
+  const isOpen = item.classList.contains('open');
+  item.closest('.num-list')?.querySelectorAll('.num-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Staggered tip reveal
+const tipObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const tips = e.target.querySelectorAll('.tip-item');
+      tips.forEach((tip, i) => {
+        setTimeout(() => tip.classList.add('visible'), i * 80);
+      });
+      tipObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+const tipsList = document.getElementById('tipsList');
+if (tipsList) tipObserver.observe(tipsList);
+
+// Sticky nav active state
+const sections = document.querySelectorAll('div[id]');
+const navLinks = document.querySelectorAll('.sticky-nav a');
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.sticky-nav a[href="#${e.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
